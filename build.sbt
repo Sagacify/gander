@@ -41,8 +41,6 @@ scalacOptions ++= Seq(
 
 testOptions in Test += Tests.Argument("-oF")
 
-credentials += Credentials(Path.userHome / ".ivy2" / ".maven-credentials")
-
 libraryDependencies ++= Seq(
   "commons-lang" % "commons-lang" % "2.6",
   "com.google.guava" % "guava" % "18.0",
@@ -55,9 +53,5 @@ libraryDependencies ++= Seq(
 )
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
-
-publishTo := Some("Sonatype Snapshots Nexus" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 lazy val root = project.in(file(".")).configs(IntegrationTest)
