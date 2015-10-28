@@ -2,7 +2,6 @@ package com.intenthq.gander.extractors
 
 import java.net.URL
 import java.text.Normalizer
-import java.util.Date
 import java.util.regex.Pattern
 
 import com.intenthq.gander.Link
@@ -106,7 +105,7 @@ object ContentExtractor {
       select("meta[name=twitter:url]").headOption.map(_.attr("abs:content"))
     ).map(_.trim)
 
-  def extractDateFromURL(url: String): Option[Date] = {
+  def extractDateFromURL(url: String): Option[DateTime] = {
     def findYearMonthAndDay(segments: Array[String]): (Option[Int], Option[Int], Option[Int]) = {
       def findMonthAndDay(segments: Array[String]): (Option[Int], Option[Int]) = {
         def findDay(segment: String): Option[Int] = Try(segment.toInt).filter(d => d >= 1 && d <= 31).toOption
@@ -129,7 +128,7 @@ object ContentExtractor {
     year.map { y =>
       val m = month.getOrElse(1)
       val d = day.getOrElse(1)
-      new DateTime(y, m, d, 0, 0).toDate
+      new DateTime(y, m, d, 0, 0)
     }
   }
 

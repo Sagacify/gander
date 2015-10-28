@@ -30,7 +30,7 @@ object Gander {
   def extract(html: String, lang: String = "all"): Option[PageInfo] =
     Try(Jsoup.parse(html)).toOption.map { doc =>
       val canonicalLink = extractCanonicalLink(doc)
-      val publishDate = extractDate(doc).map(_.toDate).orElse(canonicalLink.flatMap(extractDateFromURL))
+      val publishDate = extractDate(doc).map(_.toDate).orElse(canonicalLink.flatMap(extractDateFromURL).map(_.toDate))
 
       val rawTitle = extractTitle(doc)
       val info = PageInfo(title = rawTitle,
